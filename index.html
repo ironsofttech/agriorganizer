@@ -1,92 +1,221 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>AgriOrganizer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriOrganizer</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* ---------- Grundlayout ---------- */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7FAE5D;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    text-align: center;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #7FAE5D;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #ffffff;
-      text-align: center;
-    }
+  .container {
+    max-width: 420px;
+    padding: 24px;
+  }
 
-    .container {
-      max-width: 420px;
-      padding: 24px;
-    }
+  h1 {
+    margin-bottom: 12px;
+    font-size: 2rem;
+  }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 24px;
-    }
+  p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 
-    h1 {
-      margin-bottom: 12px;
-      font-size: 2rem;
-    }
+  /* ---------- Slideshow ---------- */
+  .slideshow {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+	margin-top: 24px;
+    margin-bottom: 10px;
+	min-height: 300px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
 
-    p {
-      margin-bottom: 20px;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
+  .slide {
+    min-width: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+  }
 
-    a.button {
-      display: inline-block;
-      padding: 12px 20px;
-      background-color: #ffffff;
-      color: #7FAE5D;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+  .slide.active {
+    opacity: 1;
+    position: relative;
+  }
 
-    a.button:hover {
-      opacity: 0.9;
-    }
+  .slide img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
 
-    .footer a {
-      color: #ffffff;
-      text-decoration: underline;
-      font-size: 0.9rem;
-    }
-  </style>
+  .slide-text {
+	  font-size: 0.9rem;
+	  opacity: 0.95;
+	  height: 60px;      /* feste Höhe */
+	  min-height: 60px;  /* verhindert Layout-Sprung */
+	  line-height: 1.2rem;
+  }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .dot.active {
+    background-color: #ffffff;
+  }
+
+  /* ---------- Buttons ---------- */
+  a.button.google {
+    background-color: #ffffff;
+    color: #7FAE5D;
+    text-decoration: none;
+    margin-bottom: 12px;
+  }
+
+  a.button:hover {
+    opacity: 0.9;
+  }
+
+  a.button.apple {
+    background-color: #cccccc;
+    color: #666666;
+    pointer-events: none;
+  }
+
+  .footer a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-size: 0.9rem;
+  }
+
+  /* App-Store Badges */
+  .store-buttons img {
+    width: 140px;
+    margin: 6px auto;
+    display: block;
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <img src="startpicture.png" alt="App Vorschau">
+  <h1>AgriOrganizer</h1>
 
-    <h1>AgriOrganizer</h1>
-
-    <p>
-      Kurze Beschreibung deiner App.
-    </p>
-
-    <a class="button" href="https://play.google.com/store/apps/details?id=com.ironsofttech.agriorganizer">
-      Im Google Play Store herunterladen
-    </a>
-
-    <div class="footer">
-      <p>
-        <a href="legalInformations.html">Datenschutzerklärung</a>
-      </p>
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
+      <div class="slide active">
+      <img src="startpicture1.png" alt="Feature 0">
+      <div class="slide-text">Organisiert die Zusammenarbeit mit Lohnunternehmen, Nachbarn und Freunden.</div>
     </div>
-
+    <div class="slide">
+      <img src="slide1.png" alt="Feature 1">
+      <div class="slide-text">Erstelle für jede deiner Maschinen und Ressourcen einen Kalender.</div>
+    </div>
+    <div class="slide">
+      <img src="slide2.png" alt="Feature 2">
+      <div class="slide-text">Erstelle Angebote für die Öffentlichkeit, Freunde oder spezifische Personenkreise und stelle sie Online.</div>
+    </div>
+    <div class="slide">
+      <img src="slide3.png" alt="Feature 3">
+      <div class="slide-text">Suche nach Angebote, überpüfe deren Verfügbarkeit und schicke sofort eine Buchungsanfrage.</div>
+    </div>
   </div>
+  
+  <div class="dots" id="dots"></div>
+
+  <p>Kurze Beschreibung deiner App.</p>
+
+	<div class="store-buttons">
+	  <!-- Google Play Badge -->
+	  <a class="button google" href="https://play.google.com/store/apps/details?id=com.ironsofttech.agriorganizer" target="_blank">
+		<img src="https://play.google.com/intl/en_us/badges/static/images/badges/de_badge_web_generic.png" alt="Google Play Store">
+	  </a>
+	  <!-- Apple App Store Badge (ausgegraut) -->
+	  <a class="button apple">
+		<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Apple App Store">
+	  </a>
+	</div>
+
+  <div class="footer">
+    <p>
+      <a href="legalInformations.html">Datenschutzerklärung</a>
+    </p>
+    <p style="margin-top: 12px; font-size: 0.85rem;">
+      Hinweis: Die Slideshow kann jetzt mit Touch-Swipe & Fade perfekt bedient werden, 
+      sodass sie wirklich smooth aussieht wie in nativen Apps, mit sanften Übergängen und weichen Swipes.
+    </p>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll(".slide");
+  const dotsContainer = document.getElementById("dots");
+  let index = 0;
+  let startX = 0;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    if(i===0) dot.classList.add("active");
+    dot.addEventListener("click", () => { showSlide(i); });
+    dotsContainer.appendChild(dot);
+  });
+  const dots = dotsContainer.children;
+
+  function showSlide(i){
+    slides.forEach(s => s.classList.remove("active"));
+    slides[i].classList.add("active");
+    for(let d of dots) d.classList.remove("active");
+    dots[i].classList.add("active");
+    index = i;
+  }
+
+  // Auto slideshow
+  setInterval(() => {
+    showSlide((index + 1) % slides.length);
+  }, 6000);
+
+  // Swipe gestures
+  const slideshow = document.getElementById("slideshow");
+  slideshow.addEventListener("touchstart", e => { startX = e.touches[0].clientX; });
+  slideshow.addEventListener("touchend", e => {
+    const endX = e.changedTouches[0].clientX;
+    if(startX - endX > 50) { // swipe left
+      showSlide((index + 1) % slides.length);
+    } else if(endX - startX > 50) { // swipe right
+      showSlide((index - 1 + slides.length) % slides.length);
+    }
+  });
+</script>
 
 </body>
 </html>
-
