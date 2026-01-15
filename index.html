@@ -29,15 +29,6 @@ h1 {
   font-size: 2.5rem;
 }
 
-/* Verhindert Text/Bild-Auswahl und Long-Press Menü */
-img, a {
-    -webkit-user-select: none; /* Safari/Chrome */
-    -ms-user-select: none;     /* IE/Edge */
-    user-select: none;         /* Standard */
-    
-    -webkit-touch-callout: none; /* Safari: kein Callout-Menü */
-}
-
 /* ---------- Language Switch ---------- */
 .lang-switch {
   position: absolute;
@@ -267,6 +258,11 @@ lang === "de" ? setLang("de") : setLang("en");
 document.getElementById("lang-en").onclick = () => setLang("en");
 document.getElementById("lang-de").onclick = () => setLang("de");
 
+// longclick disable
+document.querySelectorAll(".slide img").forEach(img => {
+    img.addEventListener("contextmenu", e => e.preventDefault());
+});
+	
 /* ---------- Slideshow ---------- */
 const slides = document.querySelectorAll(".slide");
 const dotsContainer = document.getElementById("dots");
@@ -373,4 +369,5 @@ startTimer();
 
 </body>
 </html>
+
 
