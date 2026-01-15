@@ -29,6 +29,15 @@ h1 {
   font-size: 2.5rem;
 }
 
+/* Verhindert Text/Bild-Auswahl und Long-Press Menü */
+img, a {
+    -webkit-user-select: none; /* Safari/Chrome */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;         /* Standard */
+    
+    -webkit-touch-callout: none; /* Safari: kein Callout-Menü */
+}
+
 /* ---------- Language Switch ---------- */
 .lang-switch {
   position: absolute;
@@ -364,3 +373,4 @@ startTimer();
 
 </body>
 </html>
+
