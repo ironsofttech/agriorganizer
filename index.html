@@ -98,7 +98,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 /* ---------- Click Zones ---------- */
@@ -262,7 +262,7 @@ document.getElementById("lang-de").onclick = () => setLang("de");
 document.querySelectorAll(".slide img").forEach(img => {
     img.addEventListener("contextmenu", e => e.preventDefault());
 });
-	
+
 /* ---------- Slideshow ---------- */
 const slides = document.querySelectorAll(".slide");
 const dotsContainer = document.getElementById("dots");
@@ -351,7 +351,19 @@ function onPressEnd(dir) {
   }
 }
 
+/* ---------- Global pointerup / touchend ---------- */
+document.addEventListener("pointerup", handleRelease);
+document.addEventListener("touchend", handleRelease);
+
+function handleRelease(e) {
+  if (longPressActive && isPaused) {
+    resumeTimer();
+    longPressActive = false;
+  }
+}
+
 /* ---------- Events ---------- */
+
 ["pointerdown"].forEach(e => {
   prev.addEventListener(e, onPressStart);
   next.addEventListener(e, onPressStart);
@@ -362,6 +374,10 @@ function onPressEnd(dir) {
   next.addEventListener(e, () => onPressEnd(1));
 });
 
+/* Global catch */
+document.addEventListener("pointerup", handleRelease);
+document.addEventListener("touchend", handleRelease);
+
 
 /* start */
 startTimer();
@@ -369,5 +385,3 @@ startTimer();
 
 </body>
 </html>
-
-
