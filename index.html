@@ -154,6 +154,17 @@ a.button.apple img {
   color: #fff;
   text-decoration: underline;
 }
+
+#debugLog {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  line-height: 1.1rem;
+  opacity: 0.6;
+  max-height: 80px;
+  overflow-y: auto;
+  text-align: left;
+}
+
 </style>
 </head>
 
@@ -214,6 +225,8 @@ a.button.apple img {
 
   <div class="footer">
     <p><a id="privacyLink" data-i18n="privacy"></a></p>
+		<!-- DEBUG LOG -->
+		<div id="debugLog"></div>
   </div>
 
 </div>
@@ -241,8 +254,14 @@ const texts = {
   }
 };
 
-let lang = localStorage.getItem("lang") || "en";
+// logging
+const debugLog = document.getElementById("debugLog");
+function log(msg) {
+  const time = new Date().toLocaleTimeString();
+  debugLog.innerHTML = "<div>"+ msg + "</div>" + debugLog.innerHTML;
+}
 
+let lang = localStorage.getItem("lang") || "en";
 function setLang(l) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
@@ -356,6 +375,7 @@ document.addEventListener("pointerup", handleRelease);
 document.addEventListener("touchend", handleRelease);
 
 function handleRelease(e) {
+	log("handleRelease:" + longPressActive + " " + isPaused);
   if (longPressActive && isPaused) {
     resumeTimer();
     longPressActive = false;
@@ -377,7 +397,6 @@ function handleRelease(e) {
 /* Global catch */
 document.addEventListener("pointerup", handleRelease);
 document.addEventListener("touchend", handleRelease);
-
 
 /* start */
 startTimer();
