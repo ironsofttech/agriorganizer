@@ -288,7 +288,7 @@ slides.forEach((_, i) => {
 const dots = dotsContainer.children;
 
 /* ---------- Core ---------- */
-function activateSlide(i, reset = true) {
+function activateSlide(i) {
   slides[index].classList.remove("active");
   dots[index].classList.remove("active");
 
@@ -297,27 +297,31 @@ function activateSlide(i, reset = true) {
   slides[index].classList.add("active");
   dots[index].classList.add("active");
 
-  if (reset) {
-    remaining = DURATION;
-    startTimer();
-  }
+	startTimer();
 }
 
 /* ---------- Timer ---------- */
-function startTimer() {
+function startTimer(fromResume = false) {
   clearTimeout(timer);
   isPaused = false;
   startTime = Date.now();
 
   timebar.style.transition = "none";
-  timebar.style.transform = `scaleX(${1 - remaining / DURATION})`;
+	
+  if (!fromResume) {
+    remaining = DURATION;
+    timebar.style.transform = "scaleX(0)";
+  }
+	else {
+    timebar.style.transform = `scaleX(${1 - remaining / DURATION})`;
+  }
 
   requestAnimationFrame(() => {
     timebar.style.transition = `transform ${remaining}ms linear`;
     timebar.style.transform = "scaleX(1)";
   });
 
-  timer = setTimeout(() => activateSlide(index + 1, true), remaining);
+  timer = setTimeout(() => activateSlide(index + 1), remaining);
 }
 
 function pauseTimer() {
@@ -345,17 +349,32 @@ function onPressEnd(dir) {
   clearTimeout(pressTimer);
 
   if (longPressActive) {
-    startTimer(); // resume
+    startTimer(true); // resume
   } 
 	else {
-    activateSlide(index + dir, true);
+    activateSlide(index + dir);
   }
 }
 
-/* ---------- Global pointerup / touchend ---------- */
-document.addEventListener("pointerup", handleRelease);
-document.addEventListener("touchend", handleRelease);
+/* ---------- safe start after interact ---------- */
+let started = false;
+function safeStart() {
+  if (started) return;
+  started = true;
+  startTimer();
+}
 
+/* 2 Fallback: erste User-Interaktion */
+["pointerdown", "touchstart", "mousedown"].forEach(evt => {
+  window.addEventListener(evt, safeStart, { once: true });
+});
+
+/* 3 Visibility Fix */
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) safeStart();
+});
+
+/* ---------- Global pointerup / touchend ---------- */
 function handleRelease(e) {
   if (longPressActive && isPaused) {
 		onPressEnd(1);
@@ -378,8 +397,6 @@ function handleRelease(e) {
 document.addEventListener("pointerup", handleRelease);
 document.addEventListener("touchend", handleRelease);
 
-/* start */
-startTimer();
 </script>
 
 </body>
