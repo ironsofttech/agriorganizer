@@ -158,24 +158,45 @@ a.button.apple img {
     <div class="slide-nav right" id="next"></div>
 
     <div class="slide active">
-      <img src="startpicture1.png">
-      <div class="slide-text" data-i18n="s0"></div>
+			<div class="slide-text" data-i18n="s0"></div>
+      <img src="startpicture.png">
     </div>
 
-    <div class="slide">
-      <img src="slide1.png">
-      <div class="slide-text" data-i18n="s1"></div>
-    </div>
-
-    <div class="slide">
-      <img src="slide2.png">
-      <div class="slide-text" data-i18n="s2"></div>
-    </div>
-
-    <div class="slide">
-      <img src="slide3.png">
-      <div class="slide-text" data-i18n="s3"></div>
-    </div>
+		<div class="slide">
+				<div class="slide-text" data-i18n="s1"></div>
+				<img src="slide1_de.png" id="img-slide1" data-i18n="img1">
+		</div>
+		
+		<div class="slide">
+				<div class="slide-text" data-i18n="s2"></div>
+				<img src="slide2_de.png" id="img-slide2" data-i18n="img2">
+		</div>
+		
+		<div class="slide">
+				<div class="slide-text" data-i18n="s3"></div>
+				<img src="slide3_de.png" id="img-slide3" data-i18n="img3">
+		</div>
+		
+		<div class="slide">
+				<div class="slide-text" data-i18n="s4"></div>
+				<img src="slide4_de.png" id="img-slide4" data-i18n="img4">
+		</div>
+		
+		<div class="slide">
+				<div class="slide-text" data-i18n="s5"></div>
+				<img src="slide5_de.png" id="img-slide5" data-i18n="img5">
+		</div>
+		
+		<div class="slide">
+				<div class="slide-text" data-i18n="s6"></div>
+				<img src="slide6_de.png" id="img-slide6" data-i18n="img6">
+		</div>
+		
+		<div class="slide">
+				<div class="slide-text" data-i18n="s7"></div>
+				<img src="slide7_de.png" id="img-slide7" data-i18n="img7">
+		</div>
+		
   </div>
 
   <div class="dots" id="dots"></div>
@@ -202,31 +223,67 @@ a.button.apple img {
 /* ---------- Language ---------- */
 const texts = {
   en: {
-    s0: "Organizes cooperation with contractors and neighbors.",
-    s1: "Create calendars for machines and resources.",
-    s2: "Create offers and publish them online.",
-    s3: "Search offers and send booking requests.",
+    s0: "Plan your collaboration easily and digitally.",
+    s1: "Keep track of your machinery and appointments at all times.",
+    s2: "Connect with friends, colleagues and partners in your area.",
+    s3: "Create offers and share them with specific people.",
+		s4: "Find suitable offers in your area.",
+    s5: "Check availability and book directly.",
+    s6: "Process your enquiries quickly and clearly.",
+		s7: "Keep track of costs and income.",
     soon: "*coming soon",
     privacy: "Privacy Policy",
-    href: "legals/en/legalInformations_1.0.html"
+    href: "legals/en/legalInformations_1.0.html",
+		// Bild-Pfade für Englisch
+    img1: "slide1_en.png",
+    img2: "slide2_en.png",
+    img3: "slide3_en.png",
+    img4: "slide4_en.png",
+    img5: "slide5_en.png",
+    img6: "slide6_en.png",
+    img7: "slide7_en.png"
   },
   de: {
-    s0: "Organisiert die Zusammenarbeit mit Lohnunternehmen und Nachbarn.",
-    s1: "Erstelle Kalender für Maschinen und Ressourcen.",
-    s2: "Erstelle Angebote und stelle sie online.",
-    s3: "Suche Angebote und sende Buchungsanfragen.",
+    s0: "Plane deine Zusammenarbeit einfach und digital.",
+    s1: "Behalte deine Maschinen und Termine immer im Blick.",
+    s2: "Verbinde dich mit Freunden, Mitarbeitern und Partnern in deiner Nähe.",
+    s3: "Erstelle Angebote und teile sie gezielt.",
+		s4: "Finde passende Angebote in deiner Umgebung.",
+    s5: "Prüfe Verfügbarkeit und buche direkt.",
+    s6: "Verarbeite deine Anfragen schnell und übersichtlich.",
+		s7: "Behalte Kosten und Einnahmen im Überblick.",
     soon: "*demnächst verfügbar",
     privacy: "Datenschutzerklärung",
-    href: "legals/de/legalInformations_1.0.html"
+    href: "legals/de/legalInformations_1.0.html",
+		// Bild-Pfade für Deutsch
+    img1: "slide1_de.png",
+    img2: "slide2_de.png",
+    img3: "slide3_de.png",    
+		img4: "slide4_de.png",
+    img5: "slide5_de.png",
+    img6: "slide6_de.png",
+		img7: "slide7_de.png"
   }
 };
 
 let lang = localStorage.getItem("lang") || "en";
+
 function setLang(l) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
-    if (texts[l][key]) el.textContent = texts[l][key];
-  });
+		const translation = texts[l][key];
+		
+		if (translation) {
+			// Wenn es ein Bild ist, ändere das 'src' Attribut
+			if (el.tagName === "IMG") {
+				el.src = translation;
+			} else {
+				// Ansonsten ändere den Textinhalt
+				el.textContent = translation;
+			}
+		}
+	});
+	
   document.getElementById("privacyLink").href = texts[l].href;
   document.getElementById("lang-en").classList.toggle("active", l === "en");
   document.getElementById("lang-de").classList.toggle("active", l === "de");
