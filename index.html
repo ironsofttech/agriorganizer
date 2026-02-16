@@ -227,10 +227,10 @@ const texts = {
     s1: "Keep track of your machinery and appointments at all times.",
     s2: "Connect with friends, colleagues and partners in your area.",
     s3: "Create offers and share them with specific people.",
-		s4: "Find suitable offers in your area.",
+	s4: "Find suitable offers in your area.",
     s5: "Check availability and book directly.",
     s6: "Process your enquiries quickly and clearly.",
-		s7: "Keep track of costs and income.",
+	s7: "Keep track of costs and income.",
     soon: "*coming soon",
     privacy: "Privacy Policy",
     href: "legals/en/legalInformations_1.0.html",
@@ -248,10 +248,10 @@ const texts = {
     s1: "Behalte deine Maschinen und Termine immer im Blick.",
     s2: "Verbinde dich mit Freunden, Mitarbeitern und Partnern in deiner Nähe.",
     s3: "Erstelle Angebote und teile sie gezielt.",
-		s4: "Finde passende Angebote in deiner Umgebung.",
-    s5: "Prüfe Verfügbarkeit und buche direkt.",
+	s4: "Finde passende Angebote in deiner Umgebung.",
+    s5: "Prüfe die Verfügbarkeit und buche direkt.",
     s6: "Verarbeite deine Anfragen schnell und übersichtlich.",
-		s7: "Behalte Kosten und Einnahmen im Überblick.",
+	s7: "Behalte Kosten und Einnahmen im Überblick.",
     soon: "*demnächst verfügbar",
     privacy: "Datenschutzerklärung",
     href: "legals/de/legalInformations_1.0.html",
@@ -259,10 +259,10 @@ const texts = {
     img1: "slide1_de.png",
     img2: "slide2_de.png",
     img3: "slide3_de.png",    
-		img4: "slide4_de.png",
+	img4: "slide4_de.png",
     img5: "slide5_de.png",
     img6: "slide6_de.png",
-		img7: "slide7_de.png"
+	img7: "slide7_de.png"
   }
 };
 
@@ -270,7 +270,7 @@ let lang = localStorage.getItem("lang") || "en";
 
 function setLang(l) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n;
+    	const key = el.dataset.i18n;
 		const translation = texts[l][key];
 		
 		if (translation) {
@@ -398,3 +398,4 @@ startTimer();
 
 </body>
 </html>
+
