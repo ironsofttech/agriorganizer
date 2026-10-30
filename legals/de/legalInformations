@@ -620,10 +620,10 @@ function switchLanguage(targetLang) {
   
   if (targetLang === "en") {
     // Wechselt zur englischen Rechtstext-Datei
-    window.location.href = "../en/legalInformations_1.0.html";
+    window.location.href = "../en/legalInformations.html";
   } else {
     // Wechselt zur deutschen Rechtstext-Datei
-    window.location.href = "../de/legalInformations_1.0.html";
+    window.location.href = "../de/legalInformations.html";
   }
 }
 
