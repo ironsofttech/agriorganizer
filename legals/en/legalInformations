@@ -321,7 +321,7 @@
   <!-- Nutzungsbedingungen -->
   <h1 id="nutzungsbedingungen">Terms of Use</h1>
     <p><strong>Last updated: 12 December 2025</strong></p>
-    <p><strong>Version: 1.1</strong></p>
+    <p><strong>Version: 1.0</strong></p>
     <hr>
 
     <h2>0. Definitions</h2>
@@ -483,6 +483,7 @@
 
     <h1 id="datenschutzerklaerung">Privacy Policy</h1>
     <p><strong>Last updated: 12 December 2025</strong></p>
+    <p><strong>Version: 1.1</strong></p>
     <hr>
 
     <h2>1. Scope of this Privacy Policy</h2>
@@ -516,7 +517,12 @@
         <li>Log data</li>
     </ul>
 
-    <h3>2.4 Payment Data</h3>
+    <h3>2.4 Crash Reports (Firebase Crashlytics)</h3>
+      <p>To help us identify and fix errors within the app, we use Firebase Crashlytics, a service provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland, in both the Android and iOS apps. If the app crashes or encounters a critical error, a crash report is transmitted to Google. This report contains information about the device (model, operating system, and version), app version, timestamp, and technical error trace. App contents (e.g., appointments, offers, messages) and your user ID are not transmitted. Data transmission to third countries (USA) cannot be ruled out; Google is certified under the EU-US Data Privacy Framework.</p>
+      <p>The legal basis is our legitimate interest in providing a stable and error-free app (Art. 6(1)(f) GDPR). Crash reports are deleted after 90 days.</p>
+      <p>For more information, please visit: <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">https://firebase.google.com/support/privacy</a>.</p>
+
+    <h3>2.5 Payment Data</h3>
     <p>
         Subscription payments are processed <strong>exclusively via the Apple App Store or Google Play Store</strong>.
         The App itself stores <strong>no complete payment details</strong> such as credit card numbers.
@@ -545,7 +551,7 @@
     <h2>5. Data Sharing</h2>
     <p>Data is only shared if:</p>
     <ul>
-        <li>it is technically necessary for App operation (e.g., hosting providers),</li>
+		<li>it is technically necessary for the use of the app (e.g., hosting service providers or crash analysis via Firebase Crashlytics by Google Ireland Limited),</li>
         <li>you have given explicit consent,</li>
         <li>there is a legal obligation.</li>
     </ul>
@@ -576,11 +582,8 @@
     <p>The App Provider has no influence over their data processing or refund policies.</p>
     <hr>
 
-    <h2>9. Data Retention</h2>
-    <p>
-        Data is stored only for as long as necessary for App use or as required by statutory retention obligations.
-        Users may delete content at any time.
-    </p>
+    <h2>9. Retention Period</h2>
+    <p>Data is only stored for as long as necessary to use the app or as required by statutory retention periods. Users can delete content at any time. Crash reports collected via Firebase Crashlytics are automatically deleted after 90 days.</p>
     <hr>
 
     <h2>10. Your Rights</h2>
