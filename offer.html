@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriOrganizer – Angebot öffnen</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<!-- Geteilte Angebote: https://www.agriorganizer.com/offer?id={uid}/{sichtbarkeit}/{id}.
+     Mit installierter Android-App öffnet Android den Link direkt in der App (assetlinks.json);
+     sonst landet man hier und wird zum Angebot in der Web-App weitergeleitet. -->
+<script>
+  (function () {
+    var id = new URLSearchParams(location.search).get("id");
+    var target = "https://app.agriorganizer.com/" + (id ? "#/offer?id=" + encodeURIComponent(id) : "");
+    location.replace(target);
+  })();
+</script>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #1c2e0e; color: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; text-align: center; padding: 16px; }
+  a { color: #c4e3a3; font-weight: 600; }
+</style>
+</head>
+<body>
+  <p>Angebot wird geöffnet … <a id="fallback" href="https://app.agriorganizer.com/">Weiter zur Web-App</a></p>
+</body>
+</html>

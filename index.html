@@ -3,570 +3,533 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgriOrganizer – Digitales Agrarexpertise-Management</title>
-
-<!-- Moderne, kommerziell freie Google Font (Inter) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>AgriOrganizer – Maschinen, Termine und Abrechnung in einer App</title>
+<meta name="description" content="AgriOrganizer für Landwirte und Lohnunternehmer: Maschinenkalender, Angebote teilen, Umkreissuche, Buchungen, Nachrichten, Geldfluss und Rechnungen – für Android und im Browser.">
+<meta name="theme-color" content="#2f4a17">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<!-- Vorschau beim Teilen (WhatsApp, Facebook …) -->
+<meta property="og:title" content="AgriOrganizer">
+<meta property="og:description" content="Maschinen, Termine und Abrechnung – für Landwirte und Lohnunternehmer in einer App.">
+<meta property="og:image" content="https://www.agriorganizer.com/assets/logo.png">
+<meta property="og:url" content="https://www.agriorganizer.com/">
+<meta property="og:type" content="website">
 
 <style>
+  /* Keine Schriften, Flaggen oder Bilder von fremden Servern (DSGVO): Systemschrift, alles im Repo */
   :root {
-    --primary-green: #2E6F40;
-    --accent-green: #48A162;
-    --card-bg: rgba(255, 255, 255, 0.12);
-    --card-border: rgba(255, 255, 255, 0.2);
-    --text-color: #ffffff;
+    --green-900: #1c2e0e;
+    --green-800: #2f4a17;
+    --green-600: #476b24;   /* App-Primärfarbe (hell) */
+    --green-400: #7fae5d;   /* App-Primärfarbe (dunkel) */
+    --green-100: #eef4e6;
+    --sand: #f7f5ef;
+    --ink: #1d2318;
+    --muted: #5b6553;
+    --line: #dfe4d6;
+    --white: #ffffff;
+    --radius: 20px;
+    --shadow: 0 20px 50px rgba(20, 35, 10, 0.18);
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--sand); line-height: 1.55; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 16px; }
+  h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0; }
+  h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); }
+  .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; font-weight: 700; color: var(--green-600); margin: 0 0 10px; }
+  .lead { color: var(--muted); font-size: 1.08rem; max-width: 620px; }
+  section { padding: 88px 0; }
+  .section-head { text-align: center; margin: 0 auto 48px; }
+  .section-head .lead { margin: 14px auto 0; }
+
+  /* ---------- Kopfzeile ---------- */
+  .top { position: absolute; inset: 0 0 auto 0; z-index: 20; }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); font-weight: 700; font-size: 1.15rem; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  .top nav { display: flex; align-items: center; gap: 22px; }
+  .top nav a { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
+  .top nav a:hover { color: var(--white); }
+  .lang { display: flex; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; overflow: hidden; }
+  .lang button { background: none; border: 0; color: rgba(255,255,255,0.8); font: 600 0.8rem var(--font); padding: 6px 11px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: rgba(255,255,255,0.92); color: var(--green-800); }
+  @media (max-width: 760px) { .top nav .navlink { display: none; } }
+
+  /* ---------- Hero ----------
+     Hintergrund: eigenes Foto unter assets/hero.webp ablegen (min. 2400 px breit). Fehlt es, bleibt der Farbverlauf. */
+  .hero {
+    position: relative; color: var(--white); padding: 140px 0 96px; overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(20, 32, 10, 0.35) 0%, rgba(20, 32, 10, 0.55) 55%, rgba(20, 32, 10, 0.92) 100%),
+      url("assets/hero.webp") center 40% / cover no-repeat,
+      radial-gradient(120% 90% at 80% 10%, #6f9a3e 0%, #3d5f1d 45%, #1c2e0e 100%);
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.6rem); font-weight: 800; }
+  .hero h1 span:first-child { color: #c4e3a3; }
+  .hero p.sub { font-size: 1.15rem; color: rgba(255,255,255,0.88); max-width: 540px; margin: 20px 0 32px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 14px; font: 600 1rem var(--font); text-decoration: none; transition: transform .15s ease, box-shadow .15s ease, background .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .btn-primary { background: var(--white); color: var(--green-800); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+  .btn-ghost { background: rgba(255,255,255,0.12); color: var(--white); border: 1px solid rgba(255,255,255,0.45); backdrop-filter: blur(6px); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+  .btn small { display: block; font-size: 0.7rem; font-weight: 500; opacity: .75; line-height: 1; }
+  .btn .two { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+  .soon { margin: 14px 0 0; font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+  .hero-phone { justify-self: center; }
+  @media (max-width: 880px) {
+    .hero { padding: 112px 0 64px; }
+    .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+    .hero p.sub { margin-left: auto; margin-right: auto; }
+    .cta { justify-content: center; }
   }
 
-  * {
-    box-sizing: border-box;
+  /* ---------- Telefonrahmen ---------- */
+  .phone { width: min(300px, 74vw); aspect-ratio: 720 / 1392; border-radius: 42px; padding: 11px; background: #11160c; box-shadow: var(--shadow), inset 0 0 0 2px #3a4430; position: relative; }
+  .phone::before { content: ""; position: absolute; top: 18px; left: 50%; width: 22%; height: 6px; transform: translateX(-50%); background: #2a3122; border-radius: 6px; z-index: 2; }
+  .phone .screen { width: 100%; height: 100%; border-radius: 32px; overflow: hidden; background: #fff; }
+  .phone .screen img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- Funktionen ---------- */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feature { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; transition: transform .2s ease, box-shadow .2s ease; }
+  .feature:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(20,35,10,.08); }
+  .feature .ico { width: 48px; height: 48px; border-radius: 14px; background: var(--green-100); color: var(--green-600); display: grid; place-items: center; margin-bottom: 16px; }
+  .feature .ico svg { width: 26px; height: 26px; }
+  .feature h3 { font-size: 1.12rem; margin-bottom: 6px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 0.97rem; }
+  @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+
+  /* ---------- Einblicke (Slideshow) ---------- */
+  .tour { background: var(--green-900); color: var(--white); }
+  .tour .eyebrow { color: var(--green-400); }
+  .tour-grid { display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; }
+  .captions { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .captions button { width: 100%; text-align: left; background: none; border: 0; border-left: 3px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); font: 500 1.05rem var(--font); padding: 12px 18px; cursor: pointer; transition: color .2s, border-color .2s, background .2s; border-radius: 0 12px 12px 0; }
+  .captions button:hover { color: var(--white); }
+  .captions button[aria-current="true"] { color: var(--white); border-left-color: var(--green-400); background: rgba(255,255,255,0.06); }
+  .carousel { position: relative; }
+  .track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .track::-webkit-scrollbar { display: none; }
+  .track .screen-item { flex: 0 0 100%; height: 100%; scroll-snap-align: center; }
+  .carousel .phone .screen { background: #0e1309; }
+  .arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--white); color: var(--green-800); box-shadow: 0 6px 18px rgba(0,0,0,.3); cursor: pointer; display: grid; place-items: center; z-index: 3; }
+  .arrow svg { width: 24px; height: 24px; }
+  .arrow.prev { left: -22px; } .arrow.next { right: -22px; }
+  .arrow:focus-visible, .captions button:focus-visible, .dots button:focus-visible, .track:focus-visible { outline: 3px solid var(--green-400); outline-offset: 3px; }
+  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
+  .dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 9px; background: rgba(255,255,255,0.3); cursor: pointer; transition: width .25s, background .25s; }
+  .dots button[aria-current="true"] { width: 26px; background: var(--green-400); }
+  .mobile-caption { display: none; text-align: center; min-height: 3.2em; margin: 18px auto 0; max-width: 320px; font-size: 1.05rem; }
+  @media (max-width: 880px) {
+    .tour-grid { grid-template-columns: 1fr; justify-items: center; }
+    .captions { display: none; }
+    .mobile-caption { display: block; }
+    .arrow { display: none; } /* auf dem Handy wischen */
   }
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: 
-      linear-gradient(rgba(18, 38, 24, 0.82), rgba(18, 38, 24, 0.82)),
-      url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--text-color);
-    text-align: center;
-    padding: 20px 10px;
-  }
+  /* ---------- Ablauf ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: step; }
+  .step { position: relative; padding: 28px 26px 26px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--line); }
+  .step::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--green-600); color: var(--white); font-weight: 700; margin-bottom: 14px; }
+  .step h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .step p { margin: 0; color: var(--muted); }
+  @media (max-width: 800px) { .steps { grid-template-columns: 1fr; } }
 
-  .container {
-    width: 100%;
-    max-width: 440px;
-    padding: 36px 16px;
-    background: var(--card-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    position: relative;
-  }
+  /* ---------- Tarife ---------- */
+  .plans-bg { background: var(--green-100); }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+  .plan { background: var(--white); border-radius: var(--radius); padding: 30px 26px; border: 1px solid var(--line); display: flex; flex-direction: column; }
+  .plan.highlight { border: 2px solid var(--green-600); box-shadow: var(--shadow); position: relative; }
+  .plan .badge { position: absolute; top: -13px; left: 26px; background: var(--green-600); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
+  .plan h3 { font-size: 1.3rem; }
+  .plan .tag { color: var(--muted); margin: 4px 0 18px; }
+  .plan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .plan li { display: flex; gap: 10px; align-items: flex-start; }
+  .plan li svg { width: 20px; height: 20px; flex: none; color: var(--green-600); margin-top: 2px; }
+  .plans-note { text-align: center; color: var(--muted); font-size: 0.92rem; margin-top: 22px; }
+  @media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; } }
 
-  /* ---------- Dropdown Navigation oben links ---------- */
-  .nav-dropdown {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 10;
-  }
+  /* ---------- Fragen ---------- */
+  .faq { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
+  .faq details { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 4px 22px; }
+  .faq summary { cursor: pointer; font-weight: 600; padding: 16px 0; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--green-600); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { margin: 0 0 18px; color: var(--muted); }
+  .faq details a { color: var(--green-600); font-weight: 600; }
 
-  .dropdown-btn {
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--card-border);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s;
-  }
-
-  .dropdown-btn:hover {
-    background: rgba(0, 0, 0, 0.4);
-  }
-
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    background: rgba(20, 35, 23, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    min-width: 210px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    overflow: hidden;
-    text-align: left;
-  }
-
-  .dropdown-menu.show {
-    display: block;
-  }
-
-  .dropdown-menu a {
-    display: block;
-    padding: 12px 16px;
-    color: #e0e0e0;
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 500;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .dropdown-menu a:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-  }
-
-  /* ---------- Header & Logo ---------- */
-  .header {
-    margin-bottom: 24px;
-    margin-top: 24px;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 2.3rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* ---------- Language Switch ---------- */
-  .lang-switch {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    gap: 8px;
-    background: rgba(0,0,0,0.25);
-    border: 1px solid var(--card-border);
-    padding: 6px 10px;
-    border-radius: 20px;
-  }
-
-  .lang-switch img {
-    width: 22px;
-    height: 15px;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.2s, transform 0.2s;
-    border-radius: 2px;
-  }
-
-  .lang-switch img:hover {
-    transform: scale(1.1);
-  }
-
-  .lang-switch img.active {
-    opacity: 1;
-    box-shadow: 0 0 0 2px #fff;
-  }
-
-  /* ---------- Slideshow Container (ca. 50% vergrößert) ---------- */
-  .slideshow {
-    position: relative;
-    overflow: hidden;
-    border-radius: 16px;
-    margin-top: 10px;
-    min-height: 520px; /* deutlich vergrößert */
-    background: rgba(0, 0, 0, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-  }
-	
-	.slide-arrow {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 10;
-		background: rgba(255, 255, 255, 0.4);
-		color: #7FAE5D;
-		border: none;
-		border-radius: 50%;
-		width: 32px;
-		height: 32px;
-		font-size: 1.2rem;
-		font-weight: bold;
-		cursor: pointer;
-		transition: background 0.2s ease, opacity 0.2s ease;
-		opacity: 0.7; /* Grund-Transparenz */
-		pointer-events: none; 
-		user-select: none;
-		-webkit-user-select: none;
-	}
-
-	.slide-arrow.left {
-		left: 6px; /* Position links neben dem Bild */
-	}
-
-	.slide-arrow.right {
-		right: 6px; /* Position rechts neben dem Bild */
-	}
-
-  .slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  .slide.active {
-    opacity: 1;
-    position: relative;
-  }
-
-  .slide-text {
-    min-height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.4;
-    color: #f0f0f0;
-    margin-bottom: 16px;
-  }
-
-  .image-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .slide img {
-    max-width: 100%;
-    max-height: 420px; /* Bildhöhe deutlich angehoben */
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  }
-
-  /* ---------- Click Zones & Navigation ---------- */
-  .slide-nav {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 50%;
-    z-index: 5;
-    cursor: pointer;
-  }
-
-  .slide-nav.left { left: 0; }
-  .slide-nav.right { right: 0; }
-
-  /* ---------- Navigation Dots ---------- */
-  .dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 18px 0 24px 0;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .dot.active {
-    background: #fff;
-    width: 22px;
-    border-radius: 10px;
-  }
-
-  /* ---------- App Store Buttons ---------- */
-  .store-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .store-buttons a {
-    display: inline-block;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-
-  .store-buttons a:hover {
-    transform: translateY(-2px);
-  }
-
-  .store-buttons img {
-    height: 52px;
-    width: auto;
-  }
-
-  a.button.apple {
-    cursor: not-allowed;
-  }
-
-  a.button.apple img {
-    filter: grayscale(100%);
-    opacity: 0.5;
-  }
-
-  .coming-soon {
-    margin: 4px 0 0 0;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: 500;
-  }
-
-  /* ---------- Footer ---------- */
-  .footer {
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .footer a {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.88rem;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-  }
+  /* ---------- Abschluss & Fußzeile ---------- */
+  .final { background: linear-gradient(135deg, var(--green-800), var(--green-600)); color: var(--white); text-align: center; border-radius: 28px; padding: 56px 24px; }
+  .final h2 { margin-bottom: 12px; }
+  .final p { color: rgba(255,255,255,0.85); margin: 0 auto 28px; max-width: 520px; }
+  .final .cta { justify-content: center; }
+  footer { padding: 36px 0 48px; color: var(--muted); font-size: 0.92rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--ink); text-decoration: underline; }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- Symbole (Material Icons, Apache 2.0), einmal definiert -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-8 4H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></symbol>
+  <symbol id="i-offer" viewBox="0 0 24 24"><path fill="currentColor" d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.330 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></symbol>
+  <symbol id="i-place" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></symbol>
+  <symbol id="i-group" viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.330-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.970 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path fill="currentColor" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M4 2.5v19c0 .4.4.6.7.4L20.6 12.4c.3-.2.3-.6 0-.8L4.7 2.1c-.3-.2-.7 0-.7.4z"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path fill="currentColor" d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></symbol>
+</svg>
 
-  <!-- Dropdown Navigation oben links -->
-  <div class="nav-dropdown">
-    <button class="dropdown-btn" id="menuBtn">
-      ☰ <span data-i18n="menu">Menü</span>
-    </button>
-    <div class="dropdown-menu" id="dropdownMenu">
-      <a href="index.html" data-i18n="navHome">Startseite</a>
-      <a id="navPrivacy" href="#" data-i18n="privacy">Datenschutz / Impressum</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="36" height="36">AgriOrganizer</a>
+    <nav aria-label="Hauptmenü">
+      <a class="navlink" href="#funktionen" data-i18n="navFeatures">Funktionen</a>
+      <a class="navlink" href="#einblicke" data-i18n="navTour">Einblicke</a>
+      <a class="navlink" href="#tarife" data-i18n="navPlans">Tarife</a>
+      <div class="lang" role="group" aria-label="Sprache / Language">
+        <button type="button" data-lang="de" aria-pressed="true">DE</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow" style="color:#c4e3a3" data-i18n="heroEyebrow">Für Landwirte und Lohnunternehmer</p>
+        <h1><span data-i18n="heroTitle1">Maschinen, Termine und Abrechnung</span> <span data-i18n="heroTitle2">in einer App.</span></h1>
+        <p class="sub" data-i18n="heroSub">Plane Einsätze im Maschinenkalender, teile Angebote mit deinen Kunden, lass dich direkt buchen – und erstelle die Rechnung mit wenigen Klicks.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.ironsofttech.agriorganizer" target="_blank" rel="noopener">
+            <svg><use href="#i-play"/></svg>
+            <span class="two"><small data-i18n="playSmall">Jetzt bei</small>Google Play</span>
+          </a>
+          <a class="btn btn-ghost" href="https://app.agriorganizer.com/">
+            <svg><use href="#i-open"/></svg>
+            <span class="two"><small data-i18n="webSmall">Ohne Installation</small><span data-i18n="webBtn">Im Browser öffnen</span></span>
+          </a>
+        </div>
+        <p class="soon" data-i18n="soon">iPhone-App folgt – bis dahin einfach im Browser nutzen.</p>
+      </div>
+      <div class="hero-phone">
+        <div class="phone"><div class="screen"><img src="assets/screens/de_3.jpg" data-lang-src alt="AgriOrganizer: eigene Angebote mit Kosten und Leistung" width="720" height="1392" fetchpriority="high"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Funktionen -->
+  <section id="funktionen">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="featEyebrow">Funktionen</p>
+        <h2 data-i18n="featTitle">Alles, was zwischen Hof und Kunde passiert</h2>
+        <p class="lead" data-i18n="featLead">Vom ersten Angebot bis zur bezahlten Rechnung – übersichtlich auf dem Handy und am PC.</p>
+      </div>
+      <div class="features">
+        <article class="feature"><div class="ico"><svg><use href="#i-cal"/></svg></div><h3 data-i18n="f1t">Maschinenkalender</h3><p data-i18n="f1p">Behalte Maschinen, Mitarbeiter und Termine immer im Blick – mit persönlichem Kalender und Ressourcen.</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-offer"/></svg></div><h3 data-i18n="f2t">Angebote teilen</h3><p data-i18n="f2p">Erstelle Angebote, verlinke deine Maschinen sowie Mitarbeiter und teile sie öffentlich oder nur für bestimmte Personen(-kreise).</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-place"/></svg></div><h3 data-i18n="f3t">Umkreissuche</h3><p data-i18n="f3p">Finde passende Angebote in deiner Umgebung, prüfe die Verfügbarkeit und buche direkt.</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-group"/></svg></div><h3 data-i18n="f4t">Kunden und Mitarbeiter</h3><p data-i18n="f4p">Verbinde dich mit Nachbarn, Freunden und Kunden und verlinke Mitarbeiter in deinen Angeboten.</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-chat"/></svg></div><h3 data-i18n="f5t">Anfragen und Nachrichten</h3><p data-i18n="f5p">Bearbeite Buchungsanfragen schnell und kläre Details direkt im jeweiligen Chat.</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-trend"/></svg></div><h3 data-i18n="f6t">Geldfluss und Rechnungen</h3><p data-i18n="f6p">Kosten und Einnahmen im Überblick, Rechnungen aus Buchungen erstellen und den Status verfolgen.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Einblicke: Slideshow im Telefonrahmen -->
+  <section id="einblicke" class="tour" aria-label="App-Einblicke">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="tourEyebrow">Einblicke</p>
+        <h2 data-i18n="tourTitle">So sieht AgriOrganizer aus</h2>
+      </div>
+      <div class="tour-grid">
+        <ol class="captions" id="captions">
+          <li><button type="button" data-i18n="s1">Behalte deine Maschinen und Termine immer im Blick.</button></li>
+          <li><button type="button" data-i18n="s2">Verbinde dich mit Freunden, Mitarbeitern und Partnern in deiner Nähe.</button></li>
+          <li><button type="button" data-i18n="s3">Erstelle Angebote und teile sie gezielt.</button></li>
+          <li><button type="button" data-i18n="s4">Finde passende Angebote in deiner Umgebung.</button></li>
+          <li><button type="button" data-i18n="s5">Prüfe die Verfügbarkeit und buche direkt.</button></li>
+          <li><button type="button" data-i18n="s6">Verarbeite deine Anfragen schnell und übersichtlich.</button></li>
+          <li><button type="button" data-i18n="s7">Behalte Kosten und Einnahmen im Überblick.</button></li>
+          <li><button type="button" data-i18n="s8">Erstelle Rechnungen aus deinen Buchungen und behalte den Zahlungsstatus im Blick.</button></li>
+        </ol>
+        <div>
+          <div class="carousel">
+            <button class="arrow prev" type="button" id="prev" aria-label="Vorheriges Bild"><svg><use href="#i-left"/></svg></button>
+            <div class="phone">
+              <div class="screen">
+                <div class="track" id="track" tabindex="0">
+                  <div class="screen-item"><img src="assets/screens/de_1.jpg" data-lang-src alt="" width="720" height="1392"></div>
+                  <div class="screen-item"><img src="assets/screens/de_2.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                  <div class="screen-item"><img src="assets/screens/de_3.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                  <div class="screen-item"><img src="assets/screens/de_4.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                  <div class="screen-item"><img src="assets/screens/de_5.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                  <div class="screen-item"><img src="assets/screens/de_6.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                  <div class="screen-item"><img src="assets/screens/de_7.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                  <div class="screen-item"><img src="assets/screens/de_8.jpg" data-lang-src alt="" width="720" height="1392" loading="lazy"></div>
+                </div>
+              </div>
+            </div>
+            <button class="arrow next" type="button" id="next" aria-label="Nächstes Bild"><svg><use href="#i-right"/></svg></button>
+          </div>
+          <p class="mobile-caption" id="mobileCaption" aria-live="polite"></p>
+          <div class="dots" id="dots"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="stepsEyebrow">So funktioniert's</p>
+        <h2 data-i18n="stepsTitle">In drei Schritten startklar</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><h3 data-i18n="st1t">Ressourcen anlegen</h3><p data-i18n="st1p">Lege für jede Maschine einen Kalender an und vernetze dich mit deinen Freunden.</p></div>
+        <div class="step"><h3 data-i18n="st2t">Angebot erstellen und teilen</h3><p data-i18n="st2p">Verknüpfe deine benötigten Maschinen und Fahrer je Angebot und lege Preis und Leistung fest.</p></div>
+        <div class="step"><h3 data-i18n="st3t">Buchen und abrechnen</h3><p data-i18n="st3p">Kunden buchen direkt im Kalender, du erstellst die Rechnung aus den Buchungen.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarife: Texte wie auf der Abo-Seite der App, Preise kommen aus Google Play -->
+  <section id="tarife" class="plans-bg">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="plansEyebrow">Tarife</p>
+        <h2 data-i18n="plansTitle">Kostenlos starten, bei Bedarf erweitern</h2>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3 data-i18n="p0t">Kostenlos</h3>
+          <p class="tag" data-i18n="p0d">Alles Wichtige für den Start</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p0a">Maschinenkalender erstellen und Termine verwalten</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p0b">Eigene Angebote erstellen und gezielt teilen</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p0c">Externe Angebote finden und buchen</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p0e">Freie Zeitslots finden und buchen</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p0f">In-App-Chat je Buchung</span></li>
+          </ul>
+        </div>
+        <div class="plan">
+          <h3>Basis</h3>
+          <p class="tag" data-i18n="p1d">Für alle, die regelmäßig anbieten</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p1a">Werbefrei arbeiten und wertvolle Zeit sparen</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p1b">Unbegrenzt Angebote online stellen</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p1c">Mitarbeiter hinzufügen und in deinen Angeboten verlinken</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p1e">Auslastung und Ertrag deiner Maschinen gezielt maximieren</span></li>
+          </ul>
+        </div>
+        <div class="plan highlight">
+          <span class="badge" data-i18n="p2badge">Für Lohnunternehmer</span>
+          <h3>Premium</h3>
+          <p class="tag" data-i18n="p2d">Alles aus Basis, dazu:</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p2a">Buchungen schnell filtern und jederzeit den Überblick behalten</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p2b">Buchungen und Cashflow übersichtlich in Diagrammen analysieren</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p2c">Rechnungen direkt aus gefilterten Buchungen automatisch erstellen</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p2e">Alle relevanten Daten zentral und professionell verwalten</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="plans-note" data-i18n="plansNote">Monatlich oder jährlich in der App über Google Play. Automatische Verlängerung, jederzeit kündbar.</p>
+    </div>
+  </section>
+
+  <!-- Fragen -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="faqEyebrow">Fragen</p>
+        <h2 data-i18n="faqTitle">Häufige Fragen</h2>
+      </div>
+      <div class="faq">
+        <details><summary data-i18n="q1">Kann ich AgriOrganizer am PC nutzen?</summary><p data-i18n="a1">Ja. Unter app.agriorganizer.com läuft AgriOrganizer im Browser – mit demselben Konto und denselben Daten wie auf dem Handy.</p></details>
+        <details><summary data-i18n="q2">Gibt es eine iPhone-App?</summary><p data-i18n="a2">Die iPhone-App ist in Arbeit. Bis dahin kannst du AgriOrganizer auf dem iPhone im Browser nutzen.</p></details>
+        <details><summary data-i18n="q3">Wie kündige ich mein Abo?</summary><p data-i18n="a3">Abos laufen über Google Play und lassen sich dort jederzeit kündigen – in der App führt unter „Abonnements“ ein Link direkt dorthin.</p></details>
+        <details><summary data-i18n="q4">Wie lösche ich mein Konto?</summary><p><span data-i18n="a4">Schreib uns eine kurze E-Mail von deiner registrierten Adresse – alle Infos dazu findest du hier:</span> <a href="delete-account.html" data-i18n="a4link">Account löschen</a></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="final">
+        <h2 data-i18n="finalTitle">Bereit für die nächste Saison?</h2>
+        <p data-i18n="finalSub">Kostenlos registrieren und sofort loslegen – auf dem Handy oder im Browser.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.ironsofttech.agriorganizer" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg><span class="two"><small data-i18n="playSmall">Jetzt bei</small>Google Play</span></a>
+          <a class="btn btn-ghost" href="https://app.agriorganizer.com/"><svg><use href="#i-open"/></svg><span data-i18n="webBtn">Im Browser öffnen</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> AgriOrganizer · ironsofttech</span>
+    <nav aria-label="Rechtliches">
+      <a id="privacyLink" href="legals/de/legalInformations.html" data-i18n="privacy">Datenschutz / Impressum</a>
       <a href="delete-account.html" data-i18n="navDeleteAccount">Account löschen</a>
-    </div>
+    </nav>
   </div>
-
-  <!-- Sprach-Umschalter oben rechts -->
-  <div class="lang-switch">
-    <img src="https://flagcdn.com/w40/gb.png" id="lang-en" alt="English">
-    <img src="https://flagcdn.com/w40/de.png" id="lang-de" alt="Deutsch">
-  </div>
-
-  <div class="header">
-    <h1>AgriOrganizer</h1>
-  </div>
-
-  <!-- Größerer Slideshow Bereich -->
-  <div class="slideshow">
-		<button class="slide-arrow left" id="arrowPrev">&lt;</button>
-    <button class="slide-arrow right" id="arrowNext">&gt;</button>
-		
-    <div class="slide-nav left" id="prev"></div>
-    <div class="slide-nav right" id="next"></div>
-
-    <div class="slide active">
-      <div class="slide-text" data-i18n="s0"></div>
-      <div class="image-wrapper"><img src="startpicture.png" alt="AgriOrganizer Home"></div>
-    </div>
-
-    <div class="slide">
-      <div class="slide-text" data-i18n="s1"></div>
-      <div class="image-wrapper"><img src="slide1_de.png" id="img-slide1" data-i18n="img1" alt="Feature 1"></div>
-    </div>
-    
-    <div class="slide">
-      <div class="slide-text" data-i18n="s2"></div>
-      <div class="image-wrapper"><img src="slide2_de.png" id="img-slide2" data-i18n="img2" alt="Feature 2"></div>
-    </div>
-    
-    <div class="slide">
-      <div class="slide-text" data-i18n="s3"></div>
-      <div class="image-wrapper"><img src="slide3_de.png" id="img-slide3" data-i18n="img3" alt="Feature 3"></div>
-    </div>
-    
-    <div class="slide">
-      <div class="slide-text" data-i18n="s4"></div>
-      <div class="image-wrapper"><img src="slide4_de.png" id="img-slide4" data-i18n="img4" alt="Feature 4"></div>
-    </div>
-    
-    <div class="slide">
-      <div class="slide-text" data-i18n="s5"></div>
-      <div class="image-wrapper"><img src="slide5_de.png" id="img-slide5" data-i18n="img5" alt="Feature 5"></div>
-    </div>
-    
-    <div class="slide">
-      <div class="slide-text" data-i18n="s6"></div>
-      <div class="image-wrapper"><img src="slide6_de.png" id="img-slide6" data-i18n="img6" alt="Feature 6"></div>
-    </div>
-    
-    <div class="slide">
-      <div class="slide-text" data-i18n="s7"></div>
-      <div class="image-wrapper"><img src="slide7_de.png" id="img-slide7" data-i18n="img7" alt="Feature 7"></div>
-    </div>
-  </div>
-
-  <div class="dots" id="dots"></div>
-
-  <div class="store-buttons">
-    <!-- Google Play Badge -->
-    <a class="button google" href="https://play.google.com/store/apps/details?id=com.ironsofttech.agriorganizer" target="_blank" rel="noopener">
-      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/de_badge_web_generic.png" alt="Jetzt bei Google Play">
-    </a>
-    <!-- Apple App Store Badge (ausgegraut) -->
-    <a class="button apple" href="javascript:void(0)">
-      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store demnächst">
-    </a>
-    <p class="coming-soon" data-i18n="soon"></p>
-  </div>
-
-  <div class="footer">
-    <p><a id="privacyLink" data-i18n="privacy" href="#">Datenschutz / Impressum</a></p>
-  </div>
-
-</div>
+</footer>
 
 <script>
-/* ---------- Sprachverwaltung & Texte ---------- */
-const texts = {
-  en: {
-    menu: "Menu",
-    navHome: "Home",
-    navDeleteAccount: "Delete Account",
-    s0: "Plan your collaboration easily and digitally.",
-    s1: "Keep track of your machinery and appointments at all times.",
-    s2: "Connect with friends, colleagues and partners in your area.",
-    s3: "Create offers and share them with specific people.",
-    s4: "Find suitable offers in your area.",
-    s5: "Check availability and book directly.",
-    s6: "Process your enquiries quickly and clearly.",
-    s7: "Keep track of costs and income.",
-    soon: "*coming soon on iOS",
-    privacy: "Privacy Policy / Legal",
-    href: "legals/en/legalInformations.html",
-    img1: "slide1_en.png",
-    img2: "slide2_en.png",
-    img3: "slide3_en.png",
-    img4: "slide4_en.png",
-    img5: "slide5_en.png",
-    img6: "slide6_en.png",
-    img7: "slide7_en.png"
-  },
-  de: {
-    menu: "Menü",
-    navHome: "Startseite",
-    navDeleteAccount: "Account löschen",
-    s0: "Plane deine Zusammenarbeit einfach und digital.",
-    s1: "Behalte deine Maschinen und Termine immer im Blick.",
-    s2: "Verbinde dich mit Freunden, Mitarbeitern und Partnern in deiner Nähe.",
-    s3: "Erstelle Angebote und teile sie gezielt.",
-    s4: "Finde passende Angebote in deiner Umgebung.",
-    s5: "Prüfe die Verfügbarkeit und buche direkt.",
-    s6: "Verarbeite deine Anfragen schnell und übersichtlich.",
-    s7: "Behalte Kosten und Einnahmen im Überblick.",
-    soon: "*demnächst für iOS verfügbar",
-    privacy: "Datenschutz / Impressum",
-    href: "legals/de/legalInformations.html",
-    img1: "slide1_de.png",
-    img2: "slide2_de.png",
-    img3: "slide3_de.png",    
-    img4: "slide4_de.png",
-    img5: "slide5_de.png",
-    img6: "slide6_de.png",
-    img7: "slide7_de.png"
-  }
+/* ---------- Sprache: Deutsch steht im HTML (für Suchmaschinen), Englisch kommt von hier ---------- */
+const en = {
+  navFeatures: "Features", navTour: "Tour", navPlans: "Plans",
+  heroEyebrow: "For farmers and contractors",
+  heroTitle1: "Machinery, appointments and billing", heroTitle2: "in one app.",
+  heroSub: "Plan jobs in the machinery calendar, share offers with your customers, get booked directly – and create the invoice in just a few clicks.",
+  playSmall: "Get it on", webSmall: "No installation", webBtn: "Open in browser",
+  soon: "iPhone app coming soon – until then, simply use it in the browser.",
+  featEyebrow: "Features", featTitle: "Everything between farm and customer",
+  featLead: "From the first offer to the paid invoice – clearly laid out on your phone and PC.",
+  f1t: "Machinery calendar", f1p: "Keep track of machinery, employees and appointments – with a personal calendar and resources.",
+  f2t: "Share offers", f2p: "Create offers, link your machinery and employees, and share them publicly or only with specific people or groups.",
+  f3t: "Search nearby", f3p: "Find suitable offers in your area, check availability and book directly.",
+  f4t: "Customers and employees", f4p: "Connect with neighbours, friends and customers and link employees in your offers.",
+  f5t: "Requests and messages", f5p: "Handle booking requests quickly and clarify details right in the respective chat.",
+  f6t: "Cash flow and invoices", f6p: "Costs and income at a glance, create invoices from bookings and track their status.",
+  tourEyebrow: "Tour", tourTitle: "This is AgriOrganizer",
+  s1: "Keep track of your machinery and appointments at all times.",
+  s2: "Connect with friends, colleagues and partners in your area.",
+  s3: "Create offers and share them with specific people.",
+  s4: "Find suitable offers in your area.",
+  s5: "Check availability and book directly.",
+  s6: "Process your enquiries quickly and clearly.",
+  s7: "Keep track of costs and income.",
+  s8: "Create invoices from your bookings and keep track of their payment status.",
+  stepsEyebrow: "How it works", stepsTitle: "Ready in three steps",
+  st1t: "Add resources", st1p: "Create a calendar for each machine and connect with your friends.",
+  st2t: "Create and share an offer", st2p: "Link the machinery and drivers you need to each offer and set the price and service.",
+  st3t: "Book and bill", st3p: "Customers book directly in the calendar, you create the invoice from the bookings.",
+  plansEyebrow: "Plans", plansTitle: "Start for free, upgrade when you need to",
+  p0t: "Free", p0d: "Everything you need to get started",
+  p0a: "Create machinery calendars and manage appointments", p0b: "Create your own offers and share them selectively",
+  p0c: "Find and book external offers", p0e: "Find and book free time slots", p0f: "In-app chat for every booking",
+  p1d: "For anyone who offers regularly",
+  p1a: "Working ad-free and save valuable time", p1b: "Post unlimited offers online",
+  p1c: "Add employees and link them to your offers", p1e: "Maximise the utilisation and profitability of your machines in a targeted manner",
+  p2badge: "For contractors", p2d: "Everything in Basis, plus:",
+  p2a: "Quickly filter bookings and maintain an overview at all times", p2b: "Clearly analyse bookings and cash flow in diagrams",
+  p2c: "Automatically create invoices directly from filtered bookings", p2e: "Manage all relevant data centrally and professionally",
+  plansNote: "Monthly or yearly in the app via Google Play. Automatic renewal, can be cancelled at any time.",
+  faqEyebrow: "Questions", faqTitle: "Frequently asked questions",
+  q1: "Can I use AgriOrganizer on my PC?", a1: "Yes. AgriOrganizer runs in the browser at app.agriorganizer.com – with the same account and the same data as on your phone.",
+  q2: "Is there an iPhone app?", a2: "The iPhone app is in the works. Until then, you can use AgriOrganizer on your iPhone in the browser.",
+  q3: "How do I cancel my subscription?", a3: "Subscriptions run via Google Play and can be cancelled there at any time – in the app, a link under “Subscriptions” takes you straight there.",
+  q4: "How do I delete my account?", a4: "Send us a short email from your registered address – you will find all the details here:", a4link: "Delete account",
+  finalTitle: "Ready for the next season?", finalSub: "Sign up for free and get started right away – on your phone or in the browser.",
+  privacy: "Privacy Policy / Legal", navDeleteAccount: "Delete account"
 };
+const de = {};
+document.querySelectorAll("[data-i18n]").forEach(el => { de[el.dataset.i18n] = el.textContent; });
 
-let lang = localStorage.getItem("lang") || "de";
+/* ---------- Slideshow: wischen (scroll-snap), Pfeile, Tastatur, Punkte; pausiert bei Hover/Fokus/Berührung ---------- */
+const track = document.getElementById("track");
+const items = [...track.children];
+const captionButtons = [...document.querySelectorAll("#captions button")];
+const dotsBox = document.getElementById("dots");
+const mobileCaption = document.getElementById("mobileCaption");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const DURATION = 6000;
+let index = 0, timer = null, paused = false, visible = false;
 
-function setLang(l) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n;
-    const translation = texts[l][key];
-    
-    if (translation) {
-      if (el.tagName === "IMG") {
-        el.src = translation;
-      } else {
-        el.textContent = translation;
-      }
-    }
-  });
-  
-  const privacyHref = texts[l].href;
-  document.getElementById("privacyLink").href = privacyHref;
-  document.getElementById("navPrivacy").href = privacyHref;
+items.forEach((_, i) => {
+  const d = document.createElement("button");
+  d.type = "button";
+  d.setAttribute("aria-label", `${i + 1} / ${items.length}`);
+  d.addEventListener("click", () => go(i));
+  dotsBox.appendChild(d);
+});
+const dots = [...dotsBox.children];
 
-  document.getElementById("lang-en").classList.toggle("active", l === "en");
-  document.getElementById("lang-de").classList.toggle("active", l === "de");
-  localStorage.setItem("lang", l);
+function showCaption(i) {
+  captionButtons.forEach((b, j) => b.setAttribute("aria-current", String(j === i)));
+  dots.forEach((d, j) => d.setAttribute("aria-current", String(j === i)));
+  mobileCaption.textContent = captionButtons[i].textContent;
+  items.forEach((it, j) => { it.querySelector("img").alt = captionButtons[j].textContent; });
 }
-
-setLang(lang);
-document.getElementById("lang-en").onclick = () => setLang("en");
-document.getElementById("lang-de").onclick = () => setLang("de");
-
-/* ---------- Dropdown Menü Steuerung ---------- */
-const menuBtn = document.getElementById("menuBtn");
-const dropdownMenu = document.getElementById("dropdownMenu");
-
-menuBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  dropdownMenu.classList.toggle("show");
-});
-
-document.addEventListener("click", () => {
-  dropdownMenu.classList.remove("show");
-});
-
-/* ---------- Slide Logik ---------- */
-const slides = document.querySelectorAll(".slide");
-const dotsContainer = document.getElementById("dots");
-const prev = document.getElementById("prev");
-const next = document.getElementById("next");
-
-const DURATION = 5000;
-let index = 0;
-let timer = null;
-
-slides.forEach((_, i) => {
-  const d = document.createElement("div");
-  d.className = "dot" + (i === 0 ? " active" : "");
-  d.onclick = () => activateSlide(i);
-  dotsContainer.appendChild(d);
-});
-const dots = dotsContainer.children;
-
-function activateSlide(i) {
-  slides[index].classList.remove("active");
-  dots[index].classList.remove("active");
-
-  index = (i + slides.length) % slides.length;
-
-  slides[index].classList.add("active");
-  dots[index].classList.add("active");
-
-  startTimer();
+function go(i) {
+  index = (i + items.length) % items.length;
+  track.scrollTo({ left: index * track.clientWidth, behavior: reduceMotion ? "auto" : "smooth" });
+  showCaption(index);
+  restart();
 }
-
-function startTimer() {
+function restart() {
   clearTimeout(timer);
-  timer = setTimeout(() => activateSlide(index + 1), DURATION);
+  if (!reduceMotion && !paused && visible) timer = setTimeout(() => go(index + 1), DURATION);
 }
+// Beim Wischen den aktuellen Index übernehmen
+let scrollEnd;
+track.addEventListener("scroll", () => {
+  clearTimeout(scrollEnd);
+  scrollEnd = setTimeout(() => {
+    const i = Math.round(track.scrollLeft / track.clientWidth);
+    if (i !== index) { index = i; showCaption(index); restart(); }
+  }, 120);
+});
+captionButtons.forEach((b, i) => b.addEventListener("click", () => go(i)));
+document.getElementById("prev").addEventListener("click", () => go(index - 1));
+document.getElementById("next").addEventListener("click", () => go(index + 1));
+track.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
+});
+const tour = document.getElementById("einblicke");
+const pause = v => { paused = v; restart(); };
+tour.addEventListener("mouseenter", () => pause(true));
+tour.addEventListener("mouseleave", () => pause(false));
+tour.addEventListener("focusin", () => pause(true));
+tour.addEventListener("focusout", () => pause(false));
+track.addEventListener("touchstart", () => pause(true), { passive: true });
+// Nur weiterschalten, solange die Slideshow zu sehen ist
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; restart(); }, { threshold: 0.4 }).observe(track);
 
-prev.addEventListener("click", () => activateSlide(index - 1));
-next.addEventListener("click", () => activateSlide(index + 1));
-
-startTimer();
+function readLang() { try { return localStorage.getItem("lang"); } catch (_) { return null; } }
+function setLang(l) {
+  const t = l === "en" ? en : de;
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-i18n]").forEach(el => { const v = t[el.dataset.i18n]; if (v) el.textContent = v; });
+  document.querySelectorAll("img[data-lang-src]").forEach(img => { img.src = img.getAttribute("src").replace(/(de|en)_(\d)\.jpg$/, `${l}_$2.jpg`); });
+  document.getElementById("privacyLink").href = `legals/${l}/legalInformations.html`;
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+  try { localStorage.setItem("lang", l); } catch (_) {}
+  showCaption(index);
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+document.getElementById("year").textContent = new Date().getFullYear();
+setLang(readLang() === "en" ? "en" : "de");
 </script>
 
 </body>
