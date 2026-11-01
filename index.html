@@ -117,6 +117,7 @@
   .captions button:hover { color: var(--white); }
   .captions button[aria-current="true"] { color: var(--white); border-left-color: var(--green-400); background: rgba(255,255,255,0.06); }
   .carousel { position: relative; }
+  .carousel .phone { margin: 0 auto; } /* auf schmalen Handys ist der Bereich breiter als das Telefon */
   .track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .track::-webkit-scrollbar { display: none; }
   .track .screen-item { flex: 0 0 100%; height: 100%; scroll-snap-align: center; }
@@ -235,7 +236,7 @@
         <p class="soon" data-i18n="soon">iPhone-App folgt – bis dahin einfach im Browser nutzen.</p>
       </div>
       <div class="hero-phone">
-        <div class="phone"><div class="screen"><img src="assets/screens/de_3.jpg" data-lang-src alt="AgriOrganizer: eigene Angebote mit Kosten und Leistung" width="720" height="1392" fetchpriority="high"></div></div>
+        <div class="phone"><div class="screen"><img src="assets/screens/de_7.jpg" data-lang-src alt="AgriOrganizer: Geldfluss mit Einnahmen, Ausgaben, Gewinn und Eigenleistung" width="720" height="1392" fetchpriority="high"></div></div>
       </div>
     </div>
   </section>
@@ -270,9 +271,9 @@
         <ol class="captions" id="captions">
           <li><button type="button" data-i18n="s1">Behalte deine Maschinen und Termine immer im Blick.</button></li>
           <li><button type="button" data-i18n="s2">Verbinde dich mit Freunden, Mitarbeitern und Partnern in deiner Nähe.</button></li>
-          <li><button type="button" data-i18n="s3">Erstelle Angebote und teile sie gezielt.</button></li>
-          <li><button type="button" data-i18n="s4">Finde passende Angebote in deiner Umgebung.</button></li>
-          <li><button type="button" data-i18n="s5">Prüfe die Verfügbarkeit und buche direkt.</button></li>
+          <li><button type="button" data-i18n="s3">Finde passende Angebote in deiner Umgebung.</button></li>
+          <li><button type="button" data-i18n="s4">Prüfe die Verfügbarkeit und buche direkt.</button></li>
+          <li><button type="button" data-i18n="s5">Erstelle eigene Angebote und teile sie gezielt.</button></li>
           <li><button type="button" data-i18n="s6">Verarbeite deine Anfragen schnell und übersichtlich.</button></li>
           <li><button type="button" data-i18n="s7">Behalte Kosten und Einnahmen im Überblick.</button></li>
           <li><button type="button" data-i18n="s8">Erstelle Rechnungen aus deinen Buchungen und behalte den Zahlungsstatus im Blick.</button></li>
@@ -423,9 +424,9 @@ const en = {
   tourEyebrow: "Tour", tourTitle: "This is AgriOrganizer",
   s1: "Keep track of your machinery and appointments at all times.",
   s2: "Connect with friends, colleagues and partners in your area.",
-  s3: "Create offers and share them with specific people.",
-  s4: "Find suitable offers in your area.",
-  s5: "Check availability and book directly.",
+  s3: "Find suitable offers in your area.",
+  s4: "Check availability and book directly.",
+  s5: "Create your own offers and share them with specific people.",
   s6: "Process your enquiries quickly and clearly.",
   s7: "Keep track of costs and income.",
   s8: "Create invoices from your bookings and keep track of their payment status.",
