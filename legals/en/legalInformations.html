@@ -115,8 +115,8 @@
 	
   <!-- Nutzungsbedingungen -->
   <h1 id="nutzungsbedingungen">Terms of Use</h1>
-    <p><strong>Last updated: 30 October 2026</strong></p>
-    <p><strong>Version: 1.1</strong></p>
+    <p><strong>Last updated: 5 November 2026</strong></p>
+    <p><strong>Version: 1.2</strong></p>
     <hr>
 
     <h2>0. Definitions</h2>
@@ -146,7 +146,8 @@
     <h2>3. Description of Services</h2>
     <p>
         The App provides features for creating, publishing, and sharing calendars, enabling bookings, automated calculations,
-        analytics, invoicing, management of friend lists, and special offers. The Provider may modify or restrict features at any time.
+        analytics, invoicing, management of friend lists and special offers, management of fields on a map, and optional
+        tools for field work (e.g. speedometer, area counter, load counter, calculators). The Provider may modify or restrict features at any time.
     </p>
     <hr>
 
@@ -239,6 +240,11 @@
             The Provider is not liable for incorrect offers, prices, or invoices;
             users must verify these independently.
         </li>
+        <li>
+            Values shown by the tools (e.g. speed, area, number of loads, calculator results) and calculated field areas are
+            approximations without guarantee. They depend on the accuracy of the location and the inputs and do not replace
+            a calibrated measurement.
+        </li>
         <li>No liability for content of other users or misuse by third parties.</li>
         <li>Users shall indemnify the Provider against third-party claims.</li>
         <li>Technical errors, server outages, or data loss do not give rise to claims.</li>
@@ -277,15 +283,17 @@
 	<!--------------------------------------------------------------------------------------------------------------------->
 
     <h1 id="datenschutzerklaerung">Privacy Policy</h1>
-    <p><strong>Last updated: 30 October 2026</strong></p>
-    <p><strong>Version: 1.1</strong></p>
+    <p><strong>Last updated: 5 November 2026</strong></p>
+    <p><strong>Version: 1.2</strong></p>
     <hr>
 
     <h2>1. Scope of this Privacy Policy</h2>
     <p>
         This Privacy Policy explains which personal data is collected, processed, and stored when using the App.
-        The App enables the creation and sharing of calendars, booking processing, as well as invoicing and analytics.
+        The App enables the creation and sharing of calendars, booking processing, invoicing and analytics, the management
+        of fields on a map, and optional tools for field work.
     </p>
+    <p>The controller responsible for data processing is Michael Eisner. Full contact details are given below in the <a href="#impressum">Legal Notice</a>.</p>
     <hr>
 
     <h2>2. Data Collected</h2>
@@ -302,6 +310,8 @@
         <li>Booking data (times, customer details, prices)</li>
         <li>Offer settings and special conditions</li>
         <li>Friend list / contacts</li>
+        <li>Profile picture (optional)</li>
+        <li>Fields (name, position, boundary, area) and their assignment to bookings</li>
     </ul>
 
     <h3>2.3 Automatically Collected Technical Data</h3>
@@ -322,6 +332,41 @@
         Subscription payments are processed <strong>exclusively via the Apple App Store or Google Play Store</strong>.
         The App itself stores <strong>no complete payment details</strong> such as credit card numbers.
     </p>
+
+    <h3>2.6 Location Data</h3>
+    <p>The App uses your device’s location only for the following features, and only after you have allowed it in the operating system or browser:</p>
+    <ul>
+        <li><strong>“My location” on the map:</strong> shows your position on the field map, e.g. to find or draw a field (in the app and in the browser).</li>
+        <li><strong>Tools (Android and iOS app only):</strong> speedometer (speed), area counter (worked area from distance driven and working width) and load counter (trips to an unloading point you set). These tools are switched off by default; you enable them yourself in the settings under “Extra features”.</li>
+    </ul>
+    <p>Location data used by the tools is processed <strong>exclusively on your device</strong>. It is not transmitted to us or to third parties and is not stored in your account. Only the load counter’s unloading point and your settings are stored on the device; they are removed when you uninstall the App.</p>
+    <p>When you start the area counter or load counter, counting can continue while the App is in the background or the screen is off. Your device shows a persistent notification during this time. Location access ends as soon as you pause or stop counting. Without a running count, the App does not access your location in the background.</p>
+    <p>You can revoke the location permission at any time in your device or browser settings; all other features of the App remain available.</p>
+    <p>The legal basis is your consent (Art. 6(1)(a) GDPR in conjunction with § 25(1) TDDDG), which you give via the permission prompt of the operating system or browser.</p>
+
+    <h3>2.7 Fields and Field Boundaries</h3>
+    <p>You can create fields with a name, position and optionally a drawn boundary; the App calculates the area from it. This information is stored in your account (see 2.9) and is visible only to you.</p>
+    <p>If you assign a field to a booking or calendar entry, the field’s name, position and boundary are stored in that booking. They are then visible to the users involved in the booking (e.g. customer and contractor) and to people with access to the calendar concerned (e.g. employees), so that it is clear where the work is to be done. Please only share fields of third parties if you are entitled to do so.</p>
+    <p>The legal basis is the performance of a contract (Art. 6(1)(b) GDPR).</p>
+
+    <h3>2.8 Map Service Google Maps</h3>
+    <p>For map display (satellite imagery, fields, location selection) we use Google Maps, provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. In the app, map data is loaded from Google servers when you open a map; in the browser, Google Maps is only loaded when you open a map. In doing so, Google receives in particular your IP address, technical information about your device or browser, and the map area displayed. Data transmission to third countries (USA) cannot be ruled out; Google is certified under the EU-US Data Privacy Framework. We do not transmit your name, email address or account contents to Google.</p>
+    <p>The legal basis is Art. 6(1)(b) GDPR insofar as the map is required for the feature you use, and otherwise our legitimate interest in a working map display (Art. 6(1)(f) GDPR).</p>
+    <p>For more information, please visit: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a> and <a href="https://cloud.google.com/maps-platform/terms" target="_blank" rel="noopener">https://cloud.google.com/maps-platform/terms</a>.</p>
+
+    <h3>2.9 Hosting and Technical Services (Google Firebase)</h3>
+    <p>To operate the App we use the Google Firebase platform of Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland, as a processor:</p>
+    <ul>
+        <li><strong>Firebase Authentication:</strong> sign-in and management of your account (email address, encrypted password, sign-in times, IP address).</li>
+        <li><strong>Cloud Firestore:</strong> storage of your App data (e.g. calendars, bookings, offers, friend list, fields).</li>
+        <li><strong>Cloud Storage:</strong> storage of images such as your profile picture.</li>
+        <li><strong>Cloud Functions:</strong> server-side processes, e.g. notification of new requests and verification of subscription purchases with Google Play.</li>
+        <li><strong>Cloud Messaging:</strong> delivery of push notifications; a device-specific identifier (token) is stored for this purpose.</li>
+        <li><strong>App Check:</strong> protection against misuse by verifying that requests come from a genuine app (Android: Play Integrity, iOS: App Attest).</li>
+        <li><strong>Firebase Hosting:</strong> delivery of the web app at app.agriorganizer.com; technically necessary access data such as the IP address is processed.</li>
+    </ul>
+    <p>Data transmission to third countries (USA) cannot be ruled out; Google is certified under the EU-US Data Privacy Framework. The legal basis is the performance of a contract (Art. 6(1)(b) GDPR) and, for App Check, our legitimate interest in secure operation (Art. 6(1)(f) GDPR).</p>
+    <p>For more information, please visit: <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">https://firebase.google.com/support/privacy</a>.</p>
     <hr>
 
     <h2>3. Purposes of Data Processing</h2>
@@ -330,6 +375,8 @@
         <li>Processing bookings and calendar management</li>
         <li>Creation of invoices and analytics</li>
         <li>Management of friend lists and offers</li>
+        <li>Map display and management of fields</li>
+        <li>Tools for field work (speedometer, area counter, load counter), on the device only</li>
         <li>Improvement of the App</li>
         <li>Security and prevention of misuse</li>
     </ul>
@@ -346,10 +393,11 @@
     <h2>5. Data Sharing</h2>
     <p>Data is only shared if:</p>
     <ul>
-		<li>it is technically necessary for the use of the app (e.g., hosting service providers or crash analysis via Firebase Crashlytics by Google Ireland Limited),</li>
+		<li>it is technically necessary for the use of the app (hosting and technical services via Google Firebase, see 2.9; crash analysis via Firebase Crashlytics, see 2.4; map display via Google Maps, see 2.8 – each by Google Ireland Limited),</li>
         <li>you have given explicit consent,</li>
         <li>there is a legal obligation.</li>
     </ul>
+    <p>Within the App, other users only see the data you share with them, e.g. shared calendars, bookings including assigned fields (see 2.7), or your profile in the friend list.</p>
     <p>Data is <strong>not</strong> shared with third parties for advertising purposes.</p>
     <hr>
 
@@ -378,7 +426,7 @@
     <hr>
 
     <h2>9. Retention Period</h2>
-    <p>Data is only stored for as long as necessary to use the app or as required by statutory retention periods. Users can delete content at any time. Crash reports collected via Firebase Crashlytics are automatically deleted after 90 days.</p>
+    <p>Data is only stored for as long as necessary to use the app or as required by statutory retention periods. Users can delete content at any time. Crash reports collected via Firebase Crashlytics are automatically deleted after 90 days. Fields remain stored until you delete them or your account; field details copied into existing bookings remain part of those bookings. Location data used by the tools is not stored.</p>
     <hr>
 
     <h2>10. Your Rights</h2>
@@ -389,8 +437,10 @@
         <li>Restriction of processing</li>
         <li>Data portability</li>
         <li>Objection to certain processing activities</li>
+        <li>Withdrawal of consent with effect for the future (e.g. the location permission)</li>
+        <li>Complaint to a data protection supervisory authority (Art. 77 GDPR), e.g. the Bavarian Data Protection Authority (Bayerisches Landesamt für Datenschutzaufsicht), Promenade 18, 91522 Ansbach, Germany</li>
     </ul>
-    <p>Requests may be sent to the contact address stated in the Legal Notice.</p>
+    <p>Requests may be sent to the contact address stated below in the Legal Notice.</p>
     <hr>
 
     <h2>11. Changes to this Privacy Policy</h2>
