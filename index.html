@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgriOrganizer – Maschinen, Termine und Abrechnung in einer App</title>
-<meta name="description" content="AgriOrganizer für Landwirte und Lohnunternehmer: Maschinenkalender, Angebote teilen, Umkreissuche, Buchungen, Nachrichten, Geldfluss und Rechnungen – für Android und im Browser.">
+<meta name="description" content="AgriOrganizer für Landwirte und Lohnunternehmer: Maschinenkalender, Angebote teilen, Umkreissuche, Buchungen, Nachrichten, Geldfluss und Rechnungen, Felder auf der Karte sowie Werkzeuge wie Tacho, Hektar- und Fuhrenzähler – für Android und im Browser.">
 <meta name="theme-color" content="#2f4a17">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/logo.png">
@@ -98,15 +98,33 @@
   .phone .screen img { width: 100%; height: 100%; object-fit: cover; }
 
   /* ---------- Funktionen ---------- */
-  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .feature { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; transition: transform .2s ease, box-shadow .2s ease; }
   .feature:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(20,35,10,.08); }
   .feature .ico { width: 48px; height: 48px; border-radius: 14px; background: var(--green-100); color: var(--green-600); display: grid; place-items: center; margin-bottom: 16px; }
   .feature .ico svg { width: 26px; height: 26px; }
   .feature h3 { font-size: 1.12rem; margin-bottom: 6px; }
   .feature p { margin: 0; color: var(--muted); font-size: 0.97rem; }
-  @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 1000px) { .features { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) { .features { grid-template-columns: 1fr; } }
+
+  /* ---------- Werkzeuge ---------- */
+  .tools-grid { display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; }
+  .tools-grid .section-head { text-align: left; margin: 0 0 28px; }
+  .tools-grid .section-head .lead { margin: 14px 0 0; }
+  .tool-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .tool-list li { display: flex; gap: 14px; align-items: flex-start; background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+  .tool-list .ico { width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--green-100); color: var(--green-600); display: grid; place-items: center; }
+  .tool-list .ico svg { width: 22px; height: 22px; }
+  .tool-list h3 { font-size: 1.02rem; margin: 0 0 2px; }
+  .tool-list p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .tools-note { color: var(--muted); font-size: 0.9rem; margin: 18px 0 0; }
+  @media (max-width: 880px) {
+    .tools-grid { grid-template-columns: 1fr; justify-items: center; }
+    .tools-grid > div:first-child { width: 100%; }
+    .tools-grid .section-head { text-align: center; }
+    .tools-grid .section-head .lead { margin: 14px auto 0; }
+  }
 
   /* ---------- Einblicke (Slideshow) ---------- */
   .tour { background: var(--green-900); color: var(--white); }
@@ -192,6 +210,12 @@
   <symbol id="i-group" viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.330-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.970 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></symbol>
   <symbol id="i-trend" viewBox="0 0 24 24"><path fill="currentColor" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path fill="currentColor" d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></symbol>
+  <symbol id="i-speed" viewBox="0 0 24 24"><path fill="currentColor" d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 20H4v-4h4v4zm0-6H4v-4h4v4zm0-6H4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path fill="currentColor" d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9 1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8z"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8M12 13c0-3.9-2.9-6.5-7-6.5 0 3.9 2.9 6.5 7 6.5zm0 0c0-4.4 3.1-7.5 7.5-7.5 0 4.4-3.1 7.5-7.5 7.5zM6 21h12"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></symbol>
   <symbol id="i-open" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M4 2.5v19c0 .4.4.6.7.4L20.6 12.4c.3-.2.3-.6 0-.8L4.7 2.1c-.3-.2-.7 0-.7.4z"/></symbol>
@@ -204,6 +228,7 @@
     <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="36" height="36">AgriOrganizer</a>
     <nav aria-label="Hauptmenü">
       <a class="navlink" href="#funktionen" data-i18n="navFeatures">Funktionen</a>
+      <a class="navlink" href="#werkzeuge" data-i18n="navTools">Werkzeuge</a>
       <a class="navlink" href="#einblicke" data-i18n="navTour">Einblicke</a>
       <a class="navlink" href="#tarife" data-i18n="navPlans">Tarife</a>
       <div class="lang" role="group" aria-label="Sprache / Language">
@@ -256,7 +281,31 @@
         <article class="feature"><div class="ico"><svg><use href="#i-group"/></svg></div><h3 data-i18n="f4t">Kunden und Mitarbeiter</h3><p data-i18n="f4p">Verbinde dich mit Nachbarn, Freunden und Kunden und verlinke Mitarbeiter in deinen Angeboten.</p></article>
         <article class="feature"><div class="ico"><svg><use href="#i-chat"/></svg></div><h3 data-i18n="f5t">Anfragen und Nachrichten</h3><p data-i18n="f5p">Bearbeite Buchungsanfragen schnell und kläre Details direkt im jeweiligen Chat.</p></article>
         <article class="feature"><div class="ico"><svg><use href="#i-trend"/></svg></div><h3 data-i18n="f6t">Geldfluss und Rechnungen</h3><p data-i18n="f6p">Kosten und Einnahmen im Überblick, Rechnungen aus Buchungen erstellen und den Status verfolgen.</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-map"/></svg></div><h3 data-i18n="f7t">Felder auf der Karte</h3><p data-i18n="f7p">Lege deine Felder mit Grenze und Fläche auf dem Satellitenbild an und gib sie bei der Buchung mit – so weiß der Fahrer genau, wo es losgeht.</p></article>
+        <article class="feature"><div class="ico"><svg><use href="#i-speed"/></svg></div><h3 data-i18n="f8t">Werkzeuge für die Feldarbeit</h3><p data-i18n="f8p">Tacho, Hektar- und Fuhrenzähler sowie Rechner für Ausbringmenge und Saatstärke – direkt in der App, ohne Zusatzgerät.</p></article>
       </div>
+    </div>
+  </section>
+
+  <!-- Werkzeuge -->
+  <section id="werkzeuge" class="plans-bg">
+    <div class="wrap tools-grid">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="toolsEyebrow">Neu: Werkzeuge</p>
+          <h2 data-i18n="toolsTitle">Praktische Helfer für die Feldarbeit</h2>
+          <p class="lead" data-i18n="toolsLead">Schalte in den Einstellungen nur die Werkzeuge ein, die du brauchst – sie liegen dann griffbereit in einem eigenen Bereich der App.</p>
+        </div>
+        <ul class="tool-list">
+          <li><span class="ico"><svg><use href="#i-speed"/></svg></span><div><h3 data-i18n="t1t">Tacho</h3><p data-i18n="t1p">Geschwindigkeit per GPS, ruhig geglättet und auf Wunsch im Vollbild – ideal für Schlepper ohne Radar.</p></div></li>
+          <li><span class="ico"><svg><use href="#i-grid"/></svg></span><div><h3 data-i18n="t2t">Hektarzähler</h3><p data-i18n="t2p">Bearbeitete Fläche aus Strecke und Arbeitsbreite, dazu Arbeitszeit und Leistung – zählt auch bei ausgeschaltetem Bildschirm weiter.</p></div></li>
+          <li><span class="ico"><svg><use href="#i-truck"/></svg></span><div><h3 data-i18n="t3t">Fuhrenzähler</h3><p data-i18n="t3p">Zählt automatisch, wie oft du an der Abladestelle warst – zum Beispiel beim Silieren oder Güllefahren.</p></div></li>
+          <li><span class="ico"><svg><use href="#i-drop"/></svg></span><div><h3 data-i18n="t4t">Abdreh- und Ausbringrechner</h3><p data-i18n="t4p">Für die Spritze Ausbringmenge und Düsenausstoß, für Streuer und Sämaschine die Abdrehprobe.</p></div></li>
+          <li><span class="ico"><svg><use href="#i-sprout"/></svg></span><div><h3 data-i18n="t5t">Saatstärke-Rechner</h3><p data-i18n="t5p">Saatmenge in kg/ha aus Körnern/m², Tausendkorngewicht und Keimfähigkeit – mit Saatgutbedarf und Anzahl Säcke fürs Feld.</p></div></li>
+        </ul>
+        <p class="tools-note" data-i18n="toolsNote">Kostenlos in jedem Tarif. Tacho, Hektar- und Fuhrenzähler nutzen den Standort nur auf deinem Handy; im Browser stehen die Rechner zur Verfügung.</p>
+      </div>
+      <div class="phone"><div class="screen"><img src="assets/screens/de_9.jpg" data-lang-src alt="AgriOrganizer: Werkzeuge mit Tacho, Hektarzähler, Fuhrenzähler, Abdreh- und Ausbringrechner und Saatstärke-Rechner" width="720" height="1392" loading="lazy"></div></div>
     </div>
   </section>
 
@@ -336,6 +385,7 @@
             <li><svg><use href="#i-check"/></svg><span data-i18n="p0c">Externe Angebote finden und buchen</span></li>
             <li><svg><use href="#i-check"/></svg><span data-i18n="p0e">Freie Zeitslots finden und buchen</span></li>
             <li><svg><use href="#i-check"/></svg><span data-i18n="p0f">In-App-Chat je Buchung</span></li>
+            <li><svg><use href="#i-check"/></svg><span data-i18n="p0g">Felder auf der Karte und Werkzeuge für die Feldarbeit</span></li>
           </ul>
         </div>
         <div class="plan">
@@ -374,6 +424,8 @@
       <div class="faq">
         <details><summary data-i18n="q1">Kann ich AgriOrganizer am PC nutzen?</summary><p data-i18n="a1">Ja. Unter app.agriorganizer.com läuft AgriOrganizer im Browser – mit demselben Konto und denselben Daten wie auf dem Handy.</p></details>
         <details><summary data-i18n="q2">Gibt es eine iPhone-App?</summary><p data-i18n="a2">Die iPhone-App ist in Arbeit. Bis dahin kannst du AgriOrganizer auf dem iPhone im Browser nutzen.</p></details>
+        <details><summary data-i18n="q5">Funktionieren die Werkzeuge auch im Browser?</summary><p data-i18n="a5">Die Rechner für Ausbringmenge und Saatstärke ja. Tacho, Hektar- und Fuhrenzähler brauchen das GPS des Handys und laufen deshalb nur in der App.</p></details>
+        <details><summary data-i18n="q6">Wird mein Standort gespeichert?</summary><p data-i18n="a6">Nein. Tacho, Hektar- und Fuhrenzähler verarbeiten den Standort nur auf deinem Handy und nur, solange du sie nutzt. Felder speicherst du selbst – sie sind nur für dich sichtbar, bis du sie einer Buchung mitgibst.</p></details>
         <details><summary data-i18n="q3">Wie kündige ich mein Abo?</summary><p data-i18n="a3">Abos laufen über Google Play und lassen sich dort jederzeit kündigen – in der App führt unter „Abonnements“ ein Link direkt dorthin.</p></details>
         <details><summary data-i18n="q4">Wie lösche ich mein Konto?</summary><p><span data-i18n="a4">Schreib uns eine kurze E-Mail von deiner registrierten Adresse – alle Infos dazu findest du hier:</span> <a href="delete-account.html" data-i18n="a4link">Account löschen</a></p></details>
       </div>
@@ -407,7 +459,7 @@
 <script>
 /* ---------- Sprache: Deutsch steht im HTML (für Suchmaschinen), Englisch kommt von hier ---------- */
 const en = {
-  navFeatures: "Features", navTour: "Tour", navPlans: "Plans",
+  navFeatures: "Features", navTools: "Tools", navTour: "Tour", navPlans: "Plans",
   heroEyebrow: "For farmers and contractors",
   heroTitle1: "Machinery, appointments and billing", heroTitle2: "in one app.",
   heroSub: "Plan jobs in the machinery calendar, share offers with your customers, get booked directly – and create the invoice in just a few clicks.",
@@ -421,6 +473,16 @@ const en = {
   f4t: "Customers and employees", f4p: "Connect with neighbours, friends and customers and link employees in your offers.",
   f5t: "Requests and messages", f5p: "Handle booking requests quickly and clarify details right in the respective chat.",
   f6t: "Cash flow and invoices", f6p: "Costs and income at a glance, create invoices from bookings and track their status.",
+  f7t: "Fields on the map", f7p: "Add your fields with boundary and area on the satellite image and attach them to the booking – so the driver knows exactly where to start.",
+  f8t: "Tools for field work", f8p: "Speedometer, area and load counter plus calculators for application rate and seed rate – right in the app, no extra device needed.",
+  toolsEyebrow: "New: Tools", toolsTitle: "Handy helpers for field work",
+  toolsLead: "Switch on only the tools you need in the settings – they are then close at hand in their own section of the app.",
+  t1t: "Speedometer", t1p: "Speed via GPS, smoothly filtered and full-screen if you like – ideal for tractors without radar.",
+  t2t: "Area counter", t2p: "Worked area from distance and working width, plus working time and output – keeps counting with the screen switched off.",
+  t3t: "Load counter", t3p: "Automatically counts how often you were at the unloading point – for example when silaging or spreading slurry.",
+  t4t: "Calibration and application calculator", t4p: "Application rate and nozzle output for the sprayer, calibration test for spreaders and seed drills.",
+  t5t: "Seed rate calculator", t5p: "Seed rate in kg/ha from seeds per m², thousand-kernel weight and germination – with seed requirement and number of bags for the field.",
+  toolsNote: "Free in every plan. Speedometer, area and load counter use your location only on your phone; in the browser the calculators are available.",
   tourEyebrow: "Tour", tourTitle: "This is AgriOrganizer",
   s1: "Keep track of your machinery and appointments at all times.",
   s2: "Connect with friends, colleagues and partners in your area.",
@@ -438,6 +500,7 @@ const en = {
   p0t: "Free", p0d: "Everything you need to get started",
   p0a: "Create machinery calendars and manage appointments", p0b: "Create your own offers and share them selectively",
   p0c: "Find and book external offers", p0e: "Find and book free time slots", p0f: "In-app chat for every booking",
+  p0g: "Fields on the map and tools for field work",
   p1d: "For anyone who offers regularly",
   p1a: "Working ad-free and save valuable time", p1b: "Post unlimited offers online",
   p1c: "Add employees and link them to your offers", p1e: "Maximise the utilisation and profitability of your machines in a targeted manner",
@@ -448,6 +511,8 @@ const en = {
   faqEyebrow: "Questions", faqTitle: "Frequently asked questions",
   q1: "Can I use AgriOrganizer on my PC?", a1: "Yes. AgriOrganizer runs in the browser at app.agriorganizer.com – with the same account and the same data as on your phone.",
   q2: "Is there an iPhone app?", a2: "The iPhone app is in the works. Until then, you can use AgriOrganizer on your iPhone in the browser.",
+  q5: "Do the tools work in the browser too?", a5: "The application rate and seed rate calculators do. Speedometer, area and load counter need your phone’s GPS and therefore only run in the app.",
+  q6: "Is my location stored?", a6: "No. Speedometer, area and load counter process your location only on your phone and only while you use them. You save fields yourself – they are visible only to you until you attach them to a booking.",
   q3: "How do I cancel my subscription?", a3: "Subscriptions run via Google Play and can be cancelled there at any time – in the app, a link under “Subscriptions” takes you straight there.",
   q4: "How do I delete my account?", a4: "Send us a short email from your registered address – you will find all the details here:", a4link: "Delete account",
   finalTitle: "Ready for the next season?", finalSub: "Sign up for free and get started right away – on your phone or in the browser.",
